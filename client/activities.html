@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities for Seniors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .activity {
+            background: #e0f7fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .activity:hover {
+            background: #b2ebf2;
+        }
+        .details {
+            display: none;
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Engaging Activities for Seniors</h1>
+        <div class="activity" onclick="toggleDetails('activity1')">
+            <h3>Gardening</h3>
+            <p class="details" id="activity1">Planting flowers and vegetables keeps you active and connected to nature.</p>
+        </div>
+        <div class="activity" onclick="toggleDetails('activity2')">
+            <h3>Painting & Crafts</h3>
+            <p class="details" id="activity2">Express creativity through painting, knitting, or pottery.</p>
+        </div>
+        <div class="activity" onclick="toggleDetails('activity3')">
+            <h3>Music & Dance</h3>
+            <p class="details" id="activity3">Listening to music or gentle dancing improves mood and memory.</p>
+        </div>
+        <div class="activity" onclick="toggleDetails('activity4')">
+            <h3>Book Club</h3>
+            <p class="details" id="activity4">Reading and discussing books with friends sharpens the mind.</p>
+        </div>
+        <div class="activity" onclick="toggleDetails('activity5')">
+            <h3>Board Games & Puzzles</h3>
+            <p class="details" id="activity5">Playing chess, sudoku, or crossword puzzles keeps the brain active.</p>
+        </div>
+        <div class="activity" onclick="toggleDetails('activity6')">
+            <h3>Light Exercise & Yoga</h3>
+            <p class="details" id="activity6">Gentle exercises improve mobility, balance, and overall health.</p>
+        </div>
+    </div>
+    <script>
+        function toggleDetails(id) {
+            var details = document.getElementById(id);
+            if (details.style.display === "none" || details.style.display === "") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
