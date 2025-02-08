@@ -1,0 +1,148 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility & Memory Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .btn {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .btn:hover {
+        opacity: 0.8;
+      }
+      #increaseFont {
+        background-color: #007bff;
+        color: white;
+      }
+      #decreaseFont {
+        background-color: #28a745;
+        color: white;
+      }
+      #contrast {
+        background-color: #ffc107;
+      }
+      #reset {
+        background-color: #dc3545;
+        color: white;
+      }
+      #memory-section {
+        margin-top: 20px;
+        padding: 15px;
+        border-top: 2px solid #ccc;
+      }
+      .memory-input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .memory-list {
+        margin-top: 10px;
+        list-style: none;
+        padding: 0;
+      }
+      .memory-item {
+        background: #e0e0e0;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+      }
+      .addMemory {
+        background-color: #17a2b8;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Accessibility Features</h1>
+      <p id="content">
+        This page offers accessibility enhancements for a better user
+        experience.
+      </p>
+      <button id="increaseFont" class="btn">Increase Font Size</button>
+      <button id="decreaseFont" class="btn">Decrease Font Size</button>
+      <button id="contrast" class="btn">High Contrast Mode</button>
+      <button id="reset" class="btn">Reset</button>
+    </div>
+
+    <div class="container" id="memory-section">
+      <h2>Memory Journal</h2>
+      <input
+        type="text"
+        id="memoryInput"
+        class="memory-input"
+        placeholder="Write a memory..."
+      />
+      <button type="button" id="addMemory" class="btn">Add Memory</button>
+      <ul id="memoryList" class="memory-list"></ul>
+    </div>
+
+    <script>
+      let content = document.getElementById("content");
+      let body = document.body;
+      let fontSize = 16;
+
+      document
+        .getElementById("increaseFont")
+        .addEventListener("click", function () {
+          fontSize += 2;
+          content.style.fontSize = fontSize + "px";
+        });
+
+      document
+        .getElementById("decreaseFont")
+        .addEventListener("click", function () {
+          if (fontSize > 10) fontSize -= 2;
+          content.style.fontSize = fontSize + "px";
+        });
+
+      document
+        .getElementById("contrast")
+        .addEventListener("click", function () {
+          body.style.backgroundColor = "black";
+          body.style.color = "white";
+        });
+
+      document.getElementById("reset").addEventListener("click", function () {
+        body.style.backgroundColor = "#f5f5f5";
+        body.style.color = "#333";
+        content.style.fontSize = "16px";
+      });
+
+      document
+        .getElementById("addMemory")
+        .addEventListener("click", function () {
+          let memoryInput = document.getElementById("memoryInput");
+          let memoryText = memoryInput.value.trim();
+          if (memoryText !== "") {
+            let memoryList = document.getElementById("memoryList");
+            let li = document.createElement("li");
+            li.className = "memory-item";
+            li.textContent = memoryText;
+            memoryList.appendChild(li);
+            memoryInput.value = "";
+          }
+        });
+    </script>
+  </body>
+</html>
