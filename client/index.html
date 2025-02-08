@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly Care Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --danger-color: #dc2626;
+            --success-color: #16a34a;
+            --text-large: 1.5rem;
+            --text-xl: 1.25rem;
+            --spacing: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .language-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: var(--text-xl);
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .sos-btn {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 2rem;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .sos-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: var(--text-xl);
+            font-weight: bold;
+        }
+
+        .card-content {
+            font-size: var(--text-large);
+        }
+
+        .voice-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: var(--text-xl);
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .notification {
+            background: #f8fafc;
+            padding: 1rem;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: var(--text-xl);
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #1e293b;
+            font-size: var(--text-xl);
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --text-large: 1.25rem;
+                --text-xl: 1.125rem;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Care Dashboard</h1>
+            <button class="language-btn" onclick="toggleLanguage()">हिंदी</button>
+        </header>
+
+        <button class="sos-btn" onclick="triggerEmergency()">
+            ⚠️ Emergency SOS
+        </button>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    ❤️ <h2 class="card-title">Health Stats</h2>
+                </div>
+                <div class="card-content">
+                    HR: 72 bpm<br>
+                    BP: 120/80
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    💊 <h2 class="card-title">Medications</h2>
+                </div>
+                <div class="card-content">
+                    Next: BP Medicine<br>
+                    2:00 PM
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    📅 <h2 class="card-title">Appointments</h2>
+                </div>
+                <div class="card-content">
+                    Dr. Smith<br>
+                    Tomorrow 10 AM
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    📞 <h2 class="card-title">Call Caregiver</h2>
+                </div>
+                <div class="card-content">
+                    Mary Johnson<br>
+                    Primary Caregiver
+                </div>
+            </div>
+        </div>
+
+        <button class="voice-btn" onclick="startVoiceAssistant()">
+            🎤 Voice Assistant
+        </button>
+
+        <div class="card">
+            <div class="card-header">
+                🔔 <h2 class="card-title">Recent Notifications</h2>
+            </div>
+            <div class="notification">
+                Reminder: Take blood pressure medicine at 2:00 PM
+            </div>
+            <div class="notification">
+                Upcoming: Doctor's appointment tomorrow at 10 AM
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="#" class="nav-item">
+                📊 Health
+            </a>
+            <a href="#" class="nav-item">
+                💬 Chat
+            </a>
+            <a href="#" class="nav-item">
+                ⚙️ Settings
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Language toggle functionality
+        let isEnglish = true;
+        const translations = {
+            english: {
+                dashboard: "Care Dashboard",
+                emergency: "⚠️ Emergency SOS",
+                health: "Health Stats",
+                medications: "Medications",
+                appointments: "Appointments",
+                callCaregiver: "Call Caregiver",
+                voiceAssistant: "🎤 Voice Assistant",
+                notifications: "Recent Notifications"
+            },
+            hindi: {
+                dashboard: "देखभाल डैशबोर्ड",
+                emergency: "⚠️ आपातकालीन SOS",
+                health: "स्वास्थ्य आंकड़े",
+                medications: "दवाएं",
+                appointments: "मुलाक़ातें",
+                callCaregiver: "देखभालकर्ता को कॉल करें",
+                voiceAssistant: "🎤 वॉइस असिस्टेंट",
+                notifications: "हाल की सूचनाएं"
+            }
+        };
+
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            const lang = isEnglish ? 'english' : 'hindi';
+            document.querySelector('.language-btn').textContent = isEnglish ? 'हिंदी' : 'English';
+            
+            // Update all translatable elements
+            document.querySelector('h1').textContent = translations[lang].dashboard;
+            document.querySelector('.sos-btn').textContent = translations[lang].emergency;
+            document.querySelectorAll('.card-title').forEach((title, index) => {
+                const keys = ['health', 'medications', 'appointments', 'callCaregiver', 'notifications'];
+                if (keys[index]) {
+                    title.textContent = translations[lang][keys[index]];
+                }
+            });
+            document.querySelector('.voice-btn').textContent = translations[lang].voiceAssistant;
+        }
+
+        // Emergency SOS functionality
+        function triggerEmergency() {
+            alert("Emergency alert sent to caregivers!");
+            // In a real implementation, this would trigger emergency protocols
+        }
+
+        // Voice assistant functionality
+        function startVoiceAssistant() {
+            alert("Voice assistant activated! How can I help you?");
+            // In a real implementation, this would activate voice recognition
+        }
+    </script>
+</body>
+</html>
