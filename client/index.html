@@ -12,6 +12,8 @@
             --text-large: 1.5rem;
             --text-xl: 1.25rem;
             --spacing: 1rem;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -47,26 +49,40 @@
             border: 2px solid var(--primary-color);
             border-radius: 8px;
             cursor: pointer;
+            transition: var(--transition);
         }
 
+        .language-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* SOS Button */
         .sos-btn {
-            width: 100%;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
             padding: 1.5rem;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: bold;
             background-color: var(--danger-color);
             color: white;
             border: none;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            cursor: pointer;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1000;
         }
 
         .sos-btn:hover {
             background-color: #b91c1c;
+            transform: scale(1.1);
         }
 
         .dashboard-grid {
@@ -80,7 +96,13 @@
             background: white;
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         .card-header {
@@ -112,6 +134,12 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .voice-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
 
         .notification {
@@ -120,6 +148,12 @@
             border-left: 4px solid var(--primary-color);
             margin-bottom: 1rem;
             font-size: var(--text-xl);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .notification:hover {
+            background-color: #e2e8f0;
         }
 
         .nav-bar {
@@ -130,6 +164,7 @@
             background: white;
             padding: 1rem;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 999;
         }
 
         .nav-content {
@@ -147,6 +182,11 @@
             color: #1e293b;
             font-size: var(--text-xl);
             gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover {
+            color: var(--primary-color);
         }
 
         @media (max-width: 768px) {
@@ -162,6 +202,14 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
+
+            .sos-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -171,10 +219,6 @@
             <h1>Care Dashboard</h1>
             <button class="language-btn" onclick="toggleLanguage()">हिंदी</button>
         </header>
-
-        <button class="sos-btn" onclick="triggerEmergency()">
-            ⚠️ Emergency SOS
-        </button>
 
         <div class="dashboard-grid">
             <div class="card">
@@ -235,6 +279,12 @@
         </div>
     </div>
 
+    <!-- SOS Button -->
+    <button class="sos-btn" onclick="triggerEmergency()">
+        ⚠️ 
+    </button>
+
+    <!-- Navigation Bar -->
     <nav class="nav-bar">
         <div class="nav-content">
             <a href="#" class="nav-item">
