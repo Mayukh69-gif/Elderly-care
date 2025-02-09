@@ -7,11 +7,12 @@
   <style>
     /* General Styles */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       margin: 0;
       padding: 0;
       color: #333;
+      line-height: 1.6;
     }
 
     h1 {
@@ -19,24 +20,32 @@
       font-size: 2.5rem;
       color: #2c3e50;
       margin-top: 20px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .container {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 20px auto;
       padding: 20px;
       background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      animation: slideIn 1s ease-in-out;
     }
 
     .activity-card {
       background-color: #e9f5ff;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 8px;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
       border: 1px solid #bde0fe;
       text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
     .activity-card h3 {
@@ -59,17 +68,18 @@
       font-size: 1.2rem;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
       margin: 10px 5px;
     }
 
     .activity-button:hover {
       background-color: #2980b9;
+      transform: scale(1.05);
     }
 
     .voice-input {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     .voice-input button {
@@ -80,11 +90,80 @@
       font-size: 1.2rem;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .voice-input button:hover {
       background-color: #27ae60;
+      transform: scale(1.05);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      animation: slideIn 0.3s ease-in-out;
+    }
+
+    .modal-content h3 {
+      margin: 0 0 20px;
+      font-size: 1.8rem;
+      color: #2c3e50;
+    }
+
+    .modal-content input {
+      width: 80%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #2980b9;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .modal-content .close:hover {
+      color: #000;
     }
 
     /* Accessibility Features */
@@ -115,6 +194,38 @@
 
     .high-contrast .voice-input button {
       background-color: #55cc55;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .activity-card {
+        padding: 20px;
+      }
+
+      .activity-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+
+      .voice-input button {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -155,35 +266,95 @@
     </div>
   </div>
 
+  <!-- Riddle Modal -->
+  <div id="riddleModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="riddleQuestion"></h3>
+      <input type="text" id="userAnswer" placeholder="Your answer..." />
+      <button onclick="checkAnswer()">Submit</button>
+      <p id="resultMessage"></p>
+    </div>
+  </div>
+
   <script>
     // Fun Activities
     function startFunActivity() {
       alert("Starting a fun activity! Enjoy your time.");
-      // In a real app, this could redirect to a fun activity page or display an activity.
+      // Redirect or display a fun activity
     }
 
     // Chat with Someone
     function startChat() {
       alert("Connecting you to a random person...");
-      // In a real app, this could integrate with a chat API.
+      // Integrate with a chat API
     }
 
     // Play Games
     function startGame() {
       alert("Starting a game! Have fun.");
-      // In a real app, this could redirect to a game page or display a game.
+      // Redirect or display a game
     }
 
     // Riddles and Quizzes
+    const riddles = [
+      { question: "What has keys but can't open locks?", answer: "a piano" },
+      { question: "What comes once in a minute, twice in a moment, but never in a thousand years?", answer: "the letter m" },
+      { question: "What has to be broken before you can use it?", answer: "an egg" }
+    ];
+
+    let currentRiddle;
+
     function startRiddle() {
-      alert("Here's a riddle for you: What has keys but can't open locks? (Answer: A piano)");
-      // In a real app, this could display a series of riddles or quizzes.
+      currentRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+      document.getElementById('riddleQuestion').textContent = currentRiddle.question;
+      document.getElementById('userAnswer').value = '';
+      document.getElementById('resultMessage').textContent = '';
+      document.getElementById('riddleModal').style.display = 'flex';
+    }
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById('userAnswer').value.trim().toLowerCase();
+      if (userAnswer === currentRiddle.answer) {
+        document.getElementById('resultMessage').textContent = "Correct! 🎉";
+      } else {
+        document.getElementById('resultMessage').textContent = `Incorrect. The answer is: ${currentRiddle.answer}`;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('riddleModal').style.display = 'none';
     }
 
     // Voice Input Functionality
     function startVoiceInput() {
-      alert("Voice input activated. Speak now to choose an activity.");
-      // In a real app, this would integrate with a speech recognition API.
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser does not support voice input. Please use Chrome or another supported browser.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const spokenText = event.results[0][0].transcript.toLowerCase();
+        if (spokenText.includes("fun")) {
+          startFunActivity();
+        } else if (spokenText.includes("chat")) {
+          startChat();
+        } else if (spokenText.includes("game")) {
+          startGame();
+        } else if (spokenText.includes("riddle")) {
+          startRiddle();
+        } else {
+          alert("Sorry, I didn't understand that. Please try again.");
+        }
+      };
+
+      recognition.onerror = (event) => {
+        alert("Error occurred in voice recognition. Please try again.");
+      };
     }
 
     // Toggle High Contrast Mode
