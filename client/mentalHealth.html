@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health Activities</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .activity-card {
+      background-color: #e9f5ff;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #bde0fe;
+      text-align: center;
+    }
+
+    .activity-card h3 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #2c3e50;
+    }
+
+    .activity-card p {
+      margin: 10px 0;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .activity-button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 10px 5px;
+    }
+
+    .activity-button:hover {
+      background-color: #2980b9;
+    }
+
+    .voice-input {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .voice-input button {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .voice-input button:hover {
+      background-color: #27ae60;
+    }
+
+    /* Accessibility Features */
+    .high-contrast {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .high-contrast .container {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .high-contrast .activity-card {
+      background-color: #444;
+      border-color: #555;
+    }
+
+    .high-contrast h1,
+    .high-contrast h3,
+    .high-contrast p {
+      color: #fff;
+    }
+
+    .high-contrast .activity-button {
+      background-color: #44aaff;
+    }
+
+    .high-contrast .voice-input button {
+      background-color: #55cc55;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mental Health Activities</h1>
+  <div class="container">
+    <!-- Fun Activities Section -->
+    <div class="activity-card">
+      <h3>Fun Activities</h3>
+      <p>Engage in fun activities to keep your mind active and happy.</p>
+      <button class="activity-button" onclick="startFunActivity()">Start Fun Activity</button>
+    </div>
+
+    <!-- Chat with Someone Section -->
+    <div class="activity-card">
+      <h3>Chat with Someone</h3>
+      <p>Talk to a random person and make new friends.</p>
+      <button class="activity-button" onclick="startChat()">Start Chat</button>
+    </div>
+
+    <!-- Games Section -->
+    <div class="activity-card">
+      <h3>Play Games</h3>
+      <p>Enjoy simple games to pass the time and sharpen your mind.</p>
+      <button class="activity-button" onclick="startGame()">Play Game</button>
+    </div>
+
+    <!-- Riddles and Quizzes Section -->
+    <div class="activity-card">
+      <h3>Riddles & Quizzes</h3>
+      <p>Solve riddles and quizzes to challenge your brain.</p>
+      <button class="activity-button" onclick="startRiddle()">Start Riddle</button>
+    </div>
+
+    <!-- Voice Input Section -->
+    <div class="voice-input">
+      <button onclick="startVoiceInput()">🎤 Speak to Choose Activity</button>
+    </div>
+  </div>
+
+  <script>
+    // Fun Activities
+    function startFunActivity() {
+      alert("Starting a fun activity! Enjoy your time.");
+      // In a real app, this could redirect to a fun activity page or display an activity.
+    }
+
+    // Chat with Someone
+    function startChat() {
+      alert("Connecting you to a random person...");
+      // In a real app, this could integrate with a chat API.
+    }
+
+    // Play Games
+    function startGame() {
+      alert("Starting a game! Have fun.");
+      // In a real app, this could redirect to a game page or display a game.
+    }
+
+    // Riddles and Quizzes
+    function startRiddle() {
+      alert("Here's a riddle for you: What has keys but can't open locks? (Answer: A piano)");
+      // In a real app, this could display a series of riddles or quizzes.
+    }
+
+    // Voice Input Functionality
+    function startVoiceInput() {
+      alert("Voice input activated. Speak now to choose an activity.");
+      // In a real app, this would integrate with a speech recognition API.
+    }
+
+    // Toggle High Contrast Mode
+    function toggleContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+  </script>
+</body>
+</html>

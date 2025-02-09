@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Records</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+    }
+
+    #voice-search {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Search and Filter Section */
+    .search-filter {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #search, #filter {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    #filter {
+      max-width: 200px;
+    }
+
+    /* Records List */
+    .records-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .record-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .record-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .record-card p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .view-btn {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .view-btn:hover {
+      background: #2980b9;
+    }
+
+    /* Emergency Button */
+    .emergency-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #emergency-btn {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    #emergency-btn:hover {
+      background: #c0392b;
+    }
+
+    /* Footer Navigation */
+    footer {
+      background: #2c3e50;
+      color: #fff;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    footer nav {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    footer nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>Medical Records</h1>
+      <button id="voice-search" aria-label="Voice Search">🎤</button>
+    </header>
+
+    <!-- Search and Filter Section -->
+    <div class="search-filter">
+      <input type="text" id="search" placeholder="Search records..." aria-label="Search Medical Records">
+      <select id="filter" aria-label="Filter by Category">
+        <option value="all">All Records</option>
+        <option value="prescriptions">Prescriptions</option>
+        <option value="lab-reports">Lab Reports</option>
+        <option value="appointments">Appointments</option>
+      </select>
+    </div>
+
+    <!-- Records List -->
+    <div class="records-list">
+      <div class="record-card">
+        <h3>Prescription: Diabetes Medication</h3>
+        <p>Date: 10/10/2023</p>
+        <button class="view-btn">View Details</button>
+      </div>
+      <div class="record-card">
+        <h3>Lab Report: Blood Test</h3>
+        <p>Date: 08/10/2023</p>
+        <button class="view-btn">View Details</button>
+      </div>
+      <div class="record-card">
+        <h3>Appointment: Dr. Smith</h3>
+        <p>Date: 05/10/2023</p>
+        <button class="view-btn">View Details</button>
+      </div>
+    </div>
+
+    <!-- Emergency Button -->
+    <div class="emergency-section">
+      <button id="emergency-btn">🚨 Emergency</button>
+    </div>
+  </div>
+
+  <!-- Footer Navigation -->
+  <footer>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Records</a>
+      <a href="#">Notifications</a>
+      <a href="#">Profile</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Voice Search Functionality
+    document.getElementById('voice-search').addEventListener('click', () => {
+      alert("Voice search activated. Speak now.");
+      // Add voice recognition API integration here (e.g., Web Speech API).
+    });
+
+    // Emergency Button Action
+    document.getElementById('emergency-btn').addEventListener('click', () => {
+      alert("Emergency alert sent to caregivers and healthcare providers.");
+      // Add emergency alert logic here.
+    });
+
+    // View Details Button Action
+    document.querySelectorAll('.view-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        alert("Viewing full details of the record.");
+        // Add logic to display full record details.
+      });
+    });
+  </script>
+</body>
+</html>

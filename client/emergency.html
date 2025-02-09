@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --danger-color: #dc2626;
+            --success-color: #16a34a;
+            --background-color: #f8fafc;
+            --card-color: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .language-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.2rem;
+            background: var(--card-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .emergency-button {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            background-color: var(--danger-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .add-contact-form {
+            background: var(--card-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.2rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            background-color: var(--success-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .contacts-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-card {
+            background: var(--card-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+        }
+
+        .contact-name {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-relation {
+            color: #64748b;
+        }
+
+        .delete-btn {
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            background-color: var(--danger-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .call-btn {
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            background-color: var(--success-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .contact-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-actions {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="page-title">🚨 Emergency Contacts</h1>
+            <button class="language-btn" onclick="toggleLanguage()">हिंदी</button>
+        </header>
+
+        <button class="emergency-button" onclick="triggerEmergency()">
+            ⚠️ EMERGENCY SOS
+        </button>
+
+        <form class="add-contact-form" id="addContactForm">
+            <h2 class="form-title">Add New Emergency Contact</h2>
+            <div class="input-group">
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" required placeholder="Enter contact name">
+            </div>
+            <div class="input-group">
+                <label for="contactPhone">Phone Number</label>
+                <input type="tel" id="contactPhone" required placeholder="Enter phone number">
+            </div>
+            <div class="input-group">
+                <label for="contactRelation">Relationship</label>
+                <input type="text" id="contactRelation" required placeholder="Enter relationship">
+            </div>
+            <button type="submit" class="add-btn">+ Add Contact</button>
+        </form>
+
+        <div class="contacts-list" id="contactsList">
+            <!-- Contacts will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Initial contacts data
+        let contacts = [
+            { name: 'Dr. Sarah Smith', phone: '1234567890', relation: 'Primary Doctor' },
+            { name: 'John Wilson', phone: '9876543210', relation: 'Son' },
+            { name: 'Mary Johnson', phone: '5555555555', relation: 'Caregiver' }
+        ];
+
+        // Language toggle functionality
+        let isEnglish = true;
+        const translations = {
+            english: {
+                title: '🚨 Emergency Contacts',
+                emergency: '⚠️ EMERGENCY SOS',
+                addNew: 'Add New Emergency Contact',
+                name: 'Name',
+                phone: 'Phone Number',
+                relation: 'Relationship',
+                addBtn: '+ Add Contact',
+                call: 'Call',
+                delete: 'Delete',
+                namePlaceholder: 'Enter contact name',
+                phonePlaceholder: 'Enter phone number',
+                relationPlaceholder: 'Enter relationship'
+            },
+            hindi: {
+                title: '🚨 आपातकालीन संपर्क',
+                emergency: '⚠️ आपातकालीन SOS',
+                addNew: 'नया आपातकालीन संपर्क जोड़ें',
+                name: 'नाम',
+                phone: 'फ़ोन नंबर',
+                relation: 'रिश्ता',
+                addBtn: '+ संपर्क जोड़ें',
+                call: 'कॉल',
+                delete: 'हटाएं',
+                namePlaceholder: 'संपर्क नाम दर्ज करें',
+                phonePlaceholder: 'फ़ोन नंबर दर्ज करें',
+                relationPlaceholder: 'रिश्ता दर्ज करें'
+            }
+        };
+
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            const lang = isEnglish ? 'english' : 'hindi';
+            document.querySelector('.language-btn').textContent = isEnglish ? 'हिंदी' : 'English';
+            
+            // Update all translatable elements
+            document.querySelector('.page-title').textContent = translations[lang].title;
+            document.querySelector('.emergency-button').textContent = translations[lang].emergency;
+            document.querySelector('.form-title').textContent = translations[lang].addNew;
+            
+            // Update form labels and placeholders
+            document.querySelector('label[for="contactName"]').textContent = translations[lang].name;
+            document.querySelector('label[for="contactPhone"]').textContent = translations[lang].phone;
+            document.querySelector('label[for="contactRelation"]').textContent = translations[lang].relation;
+            
+            document.getElementById('contactName').placeholder = translations[lang].namePlaceholder;
+            document.getElementById('contactPhone').placeholder = translations[lang].phonePlaceholder;
+            document.getElementById('contactRelation').placeholder = translations[lang].relationPlaceholder;
+            
+            document.querySelector('.add-btn').textContent = translations[lang].addBtn;
+            
+            // Refresh contacts list to update buttons
+            renderContacts();
+        }
+
+        // Emergency SOS functionality
+        function triggerEmergency() {
+            alert("Emergency alert sent to all emergency contacts!");
+            // In a real implementation, this would trigger calls/messages to all contacts
+        }
+
+        // Render contacts list
+        function renderContacts() {
+            const contactsList = document.getElementById('contactsList');
+            contactsList.innerHTML = '';
+            
+            contacts.forEach((contact, index) => {
+                const contactCard = document.createElement('div');
+                contactCard.className = 'contact-card';
+                contactCard.innerHTML = `
+                    <div class="contact-icon">👤</div>
+                    <div class="contact-info">
+                        <div class="contact-name">${contact.name}</div>
+                        <div class="contact-phone">${contact.phone}</div>
+                        <div class="contact-relation">${contact.relation}</div>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="call-btn" onclick="callContact('${contact.phone}')">
+                            ${isEnglish ? translations.english.call : translations.hindi.call}
+                        </button>
+                        <button class="delete-btn" onclick="deleteContact(${index})">
+                            ${isEnglish ? translations.english.delete : translations.hindi.delete}
+                        </button>
+                    </div>
+                `;
+                contactsList.appendChild(contactCard);
+            });
+        }
+
+        // Add new contact
+        document.getElementById('addContactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newContact = {
+                name: document.getElementById('contactName').value,
+                phone: document.getElementById('contactPhone').value,
+                relation: document.getElementById('contactRelation').value
+            };
+            contacts.push(newContact);
+            renderContacts();
+            this.reset();
+        });
+
+        // Delete contact
+        function deleteContact(index) {
+            if (confirm('Are you sure you want to delete this contact?')) {
+                contacts.splice(index, 1);
+                renderContacts();
+            }
+        }
+
+        // Call contact
+        function callContact(phone) {
+            window.location.href = `tel:${phone}`;
+        }
+
+        // Initial render
+        renderContacts();
+    </script>
+</body>
+</html>
