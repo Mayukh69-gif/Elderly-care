@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly Care Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 25%;
+            background: #f4f4f4;
+            padding: 15px;
+            overflow-y: auto;
+            border-right: 2px solid #ddd;
+        }
+        .sidebar .user {
+            padding: 10px;
+            background: white;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fff;
+        }
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 2px solid #ddd;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+        }
+        .input-area button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .call-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+        }
+        video {
+            width: 45%;
+            height: 200px;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Users</h3>
+        <div class="user" onclick="selectUser('John Doe')">John Doe</div>
+        <div class="user" onclick="selectUser('Alice Smith')">Alice Smith</div>
+    </div>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div class="call-buttons">
+            <button onclick="startAudioCall()">Audio Call</button>
+            <button onclick="startVideoCall()">Video Call</button>
+        </div>
+        <div class="video-container">
+            <video id="localVideo" autoplay></video>
+            <video id="remoteVideo" autoplay></video>
+        </div>
+    </div>
+
+    <script>
+        let selectedUser = "";
+        function selectUser(user) {
+            selectedUser = user;
+            document.getElementById("messages").innerHTML = `<p>Chat with ${user}</p>`;
+        }
+        function sendMessage() {
+            let input = document.getElementById("chatInput");
+            if (input.value.trim() !== "") {
+                let message = `<p><strong>You:</strong> ${input.value}</p>`;
+                document.getElementById("messages").innerHTML += message;
+                input.value = "";
+            }
+        }
+        function startAudioCall() {
+            alert("Starting an audio call with " + selectedUser);
+        }
+        function startVideoCall() {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(stream => {
+                    document.getElementById("localVideo").srcObject = stream;
+                })
+                .catch(error => alert("Error accessing camera/microphone"));
+        }
+    </script>
+</body>
+</html>
