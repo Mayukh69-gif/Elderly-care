@@ -84,6 +84,23 @@
             height: auto;
             background: black;
         }
+        .call-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .call-controls button {
+            padding: 10px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: #f0f0f0;
+        }
+        .call-controls button.active {
+            background: #4CAF50;
+            color: white;
+        }
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -121,14 +138,25 @@
                 <video id="localVideo" autoplay></video>
                 <video id="remoteVideo" autoplay></video>
             </div>
+            <div class="call-controls" id="callControls" style="display: none;">
+                <button id="muteAudio" onclick="toggleMuteAudio()">Mute</button>
+                <button id="muteVideo" onclick="toggleMuteVideo()">Video Off</button>
+                <button id="endCall" onclick="endCall()">End Call</button>
+            </div>
         </div>
     </div>
     <script>
         let selectedUser = "";
+        let localStream;
+        let remoteStream;
+        let isAudioMuted = false;
+        let isVideoMuted = false;
+
         function selectUser(user) {
             selectedUser = user;
             document.getElementById("messages").innerHTML = `<p>Chat with ${user}</p>`;
         }
+
         function sendMessage() {
             let input = document.getElementById("chatInput");
             if (input.value.trim() !== "") {
@@ -137,15 +165,49 @@
                 input.value = "";
             }
         }
+
         function startAudioCall() {
             alert("Starting an audio call with " + selectedUser);
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    localStream = stream;
+                    document.getElementById("localVideo").srcObject = stream;
+                    document.getElementById("callControls").style.display = "flex";
+                })
+                .catch(error => alert("Error accessing microphone"));
         }
+
         function startVideoCall() {
+            alert("Starting a video call with " + selectedUser);
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
+                    localStream = stream;
                     document.getElementById("localVideo").srcObject = stream;
+                    document.getElementById("callControls").style.display = "flex";
                 })
                 .catch(error => alert("Error accessing camera/microphone"));
+        }
+
+        function toggleMuteAudio() {
+            isAudioMuted = !isAudioMuted;
+            localStream.getAudioTracks().forEach(track => track.enabled = !isAudioMuted);
+            document.getElementById("muteAudio").innerText = isAudioMuted ? "Unmute" : "Mute";
+        }
+
+        function toggleMuteVideo() {
+            isVideoMuted = !isVideoMuted;
+            localStream.getVideoTracks().forEach(track => track.enabled = !isVideoMuted);
+            document.getElementById("muteVideo").innerText = isVideoMuted ? "Video On" : "Video Off";
+        }
+
+        function endCall() {
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+            }
+            document.getElementById("localVideo").srcObject = null;
+            document.getElementById("remoteVideo").srcObject = null;
+            document.getElementById("callControls").style.display = "none";
+            alert("Call ended with " + selectedUser);
         }
     </script>
 </body>
