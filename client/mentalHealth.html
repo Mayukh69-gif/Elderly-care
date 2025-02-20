@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,13 +199,25 @@
 
     /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes slideIn {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     /* Responsive Design */
@@ -227,8 +240,57 @@
         font-size: 1rem;
       }
     }
+
+    #celebration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 223, 88, 0.9);
+      color: #ff00ff;
+      font-size: 5rem;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: pop 1s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .blink-red {
+      animation: blink 0.5s ease-in-out;
+    }
+
+    @keyframes blink {
+      0% {
+        background-color: red;
+      }
+
+      100% {
+        background-color: white;
+      }
+    }
   </style>
 </head>
+
 <body>
   <h1>Mental Health Activities</h1>
   <div class="container">
@@ -298,9 +360,19 @@
 
     // Riddles and Quizzes
     const riddles = [
-      { question: "What has keys but can't open locks?", answer: "a piano" },
-      { question: "What comes once in a minute, twice in a moment, but never in a thousand years?", answer: "the letter m" },
-      { question: "What has to be broken before you can use it?", answer: "an egg" }
+      { question: "What has keys but can't open locks?", answer: "piano" },
+      { question: "What comes once in a minute, twice in a moment, but never in a thousand years?", answer: "m" },
+      { question: "What has to be broken before you can use it?", answer: "egg" },
+      { question: "The more you take, the more you leave behind. What am I?", answer: "footsteps" },
+      { question: "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", answer: "echo" },
+      { question: "I have cities but no houses, forests but no trees, and rivers but no water. What am I?", answer: "map" },
+      { question: "I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", answer: "cloud" },
+      { questiom: "The more you remove from me, the bigger I get. What am I?", answer: "hole" },
+      { question: "I can be cracked, made, told, and played. What am I?", answer: "joke" },
+      { question: "The more of me you share, the less you have. What am I?", answer: "secret" },
+      { question: "I have hands but no arms, a face but no eyes. What am I?", answer: "clock" },
+      { question: "You see me once in June, twice in November, but not at all in May. What am I?", answer: "letter E" },
+      { question: "I go up but never come down. What am I?", answer: "age" }
     ];
 
     let currentRiddle;
@@ -321,6 +393,107 @@
         document.getElementById('resultMessage').textContent = `Incorrect. The answer is: ${currentRiddle.answer}`;
       }
     }
+
+
+    
+
+    function startRiddle() {
+      currentRiddleIndex = 0;
+      displayRiddle();
+      document.getElementById("riddleModal").style.display = "flex";
+    }
+
+    function displayRiddle() {
+      if (currentRiddleIndex < riddles.length) {
+        document.getElementById("riddleQuestion").textContent = riddles[currentRiddleIndex].question;
+        document.getElementById("userAnswer").value = "";
+        document.getElementById("resultMessage").textContent = "";
+      } else {
+        document.getElementById("riddleQuestion").textContent = "You've completed all riddles!";
+        document.getElementById("userAnswer").style.display = "none";
+        document.querySelector(".modal-content button").style.display = "none";
+      }
+    }
+
+    function checkAnswer() {
+      let userAnswer = document.getElementById("userAnswer").value.toLowerCase().trim();
+      let correctAnswer = riddles[currentRiddleIndex].answer.toLowerCase();
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById("resultMessage").textContent = "Correct! 🎉 Moving to the next riddle...";
+        setTimeout(() => {
+          currentRiddleIndex++;
+          displayRiddle();
+        }, 1500); // Delay to show feedback before moving to the next riddle
+      } else {
+        document.getElementById("resultMessage").textContent = "Incorrect! Try again.";
+      }
+    }
+
+
+    let currentRiddleIndex = 0;
+
+    function startRiddle() {
+      currentRiddleIndex = 0;
+      displayRiddle();
+      document.getElementById("riddleModal").style.display = "flex";
+    }
+
+    function displayRiddle() {
+      if (currentRiddleIndex < riddles.length) {
+        document.getElementById("riddleQuestion").textContent = riddles[currentRiddleIndex].question;
+        document.getElementById("userAnswer").value = "";
+        document.getElementById("resultMessage").textContent = "";
+      } else {
+        document.getElementById("riddleQuestion").textContent = "You've completed all riddles!";
+        document.getElementById("userAnswer").style.display = "none";
+        document.querySelector(".modal-content button").style.display = "none";
+      }
+    }
+
+    function checkAnswer() {
+      let userAnswer = document.getElementById("userAnswer").value.toLowerCase().trim();
+      let correctAnswer = riddles[currentRiddleIndex].answer.toLowerCase();
+
+      if (userAnswer === correctAnswer) {
+        celebrate();
+        setTimeout(() => {
+          currentRiddleIndex++;
+          displayRiddle();
+        }, 3000); // Delay before moving to the next riddle
+      } else {
+        blinkRed();
+      }
+    }
+
+    function celebrate() {
+      let celebrationDiv = document.createElement("div");
+      celebrationDiv.id = "celebration";
+      celebrationDiv.innerHTML = "<h1>🎉 YAYY! 🎉</h1>";
+      document.body.appendChild(celebrationDiv);
+
+      setTimeout(() => {
+        celebrationDiv.remove();
+      }, 2000);
+    }
+
+
+    function blinkRed() {
+      document.body.classList.add("blink-red");
+      setTimeout(() => {
+        document.body.classList.remove("blink-red");
+      }, 500);
+    }
+
+    function closeModal() {
+      document.getElementById("riddleModal").style.display = "none";
+    }
+
+
+    function closeModal() {
+      document.getElementById("riddleModal").style.display = "none";
+    }
+
 
     function closeModal() {
       document.getElementById('riddleModal').style.display = 'none';
@@ -363,4 +536,5 @@
     }
   </script>
 </body>
+
 </html>
