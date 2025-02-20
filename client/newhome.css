@@ -161,7 +161,39 @@
         .logo-icon {
             animation: pulse 2s infinite;
         }
+        .auth-buttons {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            margin-left: auto; /* Push buttons to the right */
+        }
         
+        .auth-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sign-in {
+            background-color: transparent;
+            color: #000; /* Adjust color as needed */
+            border: 1px solid #000; /* Adjust border color as needed */
+        }
+        
+        .sign-up {
+            background-color: #FF69B4; /* Adjust color as needed */
+            color: #fff;
+            border: 1px solid #FF69B4; /* Adjust border color as needed */
+        }
+        
+        .sign-in:hover {
+            background-color: #f0f0f0; /* Hover effect */
+        }
+        
+        .sign-up:hover {
+            background-color: #C71585; /* Hover effect */
+        }
         .hero-text {
             color: white;
         }
